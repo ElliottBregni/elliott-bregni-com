@@ -289,9 +289,11 @@ const projects = [
 
   /* Print: clean white, hide chrome, tight single-page layout */
   @media print {
+    /* Margin 0 on @page suppresses the browser-injected URL/title/date headers
+       in most browsers; we move the page margin into .resume padding instead. */
     @page {
       size: letter;
-      margin: 0.4in;
+      margin: 0;
     }
     html,
     body {
@@ -299,13 +301,14 @@ const projects = [
       color: #111 !important;
       font-size: 10pt;
       line-height: 1.35;
+      margin: 0 !important;
     }
     .resume-toolbar {
       display: none !important;
     }
     .resume {
       max-width: none !important;
-      padding: 0 !important;
+      padding: 0.4in !important;
       margin: 0 !important;
     }
 
