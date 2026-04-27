@@ -1,0 +1,152 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const formatDate = (d: Date) =>
+  d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" });
+---
+
+<BaseLayout
+  title={`${post.data.title} · Elliott Bregni`}
+  description={post.data.summary}
+  ogTitle={post.data.title}
+  ogDescription={post.data.summary}
+  ogUrl={`https://elliott.bregni.com/blog/${post.id}/`}
+>
+  <Nav />
+
+  <main class="max-w-3xl mx-auto px-6 pt-32 pb-28">
+    <a
+      href="/blog"
+      class="inline-flex items-center gap-2 font-mono text-xs text-zinc-500 hover:text-white transition-colors mb-10"
+    >
+      ← Back to all posts
+    </a>
+
+    <header class="mb-12">
+      <time
+        datetime={post.data.date.toISOString()}
+        class="font-mono text-xs text-zinc-500 uppercase tracking-wider"
+      >
+        {formatDate(post.data.date)}
+      </time>
+      <h1 class="text-4xl md:text-5xl font-bold tracking-tight mt-3 mb-4 leading-[1.1]">
+        {post.data.title}
+      </h1>
+      <p class="text-zinc-400 text-lg leading-relaxed">{post.data.summary}</p>
+      {
+        post.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mt-5">
+            {post.data.tags.map((t) => (
+              <span class="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 bg-zinc-900 border border-zinc-800 rounded text-zinc-500">
+                {t}
+              </span>
+            ))}
+          </div>
+        )
+      }
+    </header>
+
+    <article class="post-body text-zinc-300 leading-relaxed">
+      <Content />
+    </article>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<style is:global>
+  .post-body {
+    font-size: 1.05rem;
+  }
+  .post-body > * + * {
+    margin-top: 1.25rem;
+  }
+  .post-body h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+  .post-body h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #fff;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  .post-body a {
+    color: #818cf8;
+    text-underline-offset: 4px;
+  }
+  .post-body a:hover {
+    color: #a5b4fc;
+    text-decoration: underline;
+  }
+  .post-body strong {
+    color: #fff;
+    font-weight: 600;
+  }
+  .post-body code {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.9em;
+    background: #18181b;
+    border: 1px solid #27272a;
+    border-radius: 4px;
+    padding: 0.1rem 0.35rem;
+    color: #e4e4e7;
+  }
+  .post-body pre {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.85rem;
+    background: #0d0d0f;
+    border: 1px solid #1c1c1e;
+    border-radius: 0.5rem;
+    padding: 1rem 1.25rem;
+    overflow-x: auto;
+  }
+  .post-body pre code {
+    background: transparent;
+    border: 0;
+    padding: 0;
+  }
+  .post-body ul,
+  .post-body ol {
+    padding-left: 1.5rem;
+  }
+  .post-body ul {
+    list-style: disc;
+  }
+  .post-body ol {
+    list-style: decimal;
+  }
+  .post-body li + li {
+    margin-top: 0.4rem;
+  }
+  .post-body blockquote {
+    border-left: 2px solid #818cf8;
+    padding-left: 1rem;
+    color: #a1a1aa;
+    font-style: italic;
+  }
+  .post-body hr {
+    border: 0;
+    border-top: 1px solid #27272a;
+    margin: 2rem 0;
+  }
+</style>

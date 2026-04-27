@@ -1,0 +1,66 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+
+const formatDate = (d: Date) =>
+  d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" });
+---
+
+<BaseLayout title="Blog · Elliott Bregni" description="Notes from Elliott Bregni — agents, supply chain, security, tools.">
+  <Nav />
+
+  <main class="max-w-4xl mx-auto px-6 pt-32 pb-28">
+    <div class="section-label reveal visible">/ BLOG</div>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Notes.</h1>
+    <p class="text-zinc-400 text-lg mb-14 max-w-xl leading-relaxed">
+      Short writeups on agents, real-time systems, security, and the tools that hold them together.
+    </p>
+
+    {
+      posts.length === 0 ? (
+        <p class="text-zinc-500">No posts yet. Check back soon.</p>
+      ) : (
+        <ul class="space-y-2">
+          {posts.map((post) => (
+            <li>
+              <a
+                href={`/blog/${post.id}/`}
+                class="block py-6 border-t border-zinc-900 hover:border-indigo-400/40 transition-colors group"
+              >
+                <div class="flex items-baseline justify-between gap-6 mb-2 flex-wrap">
+                  <h2 class="text-xl font-semibold text-zinc-100 group-hover:text-white transition-colors">
+                    {post.data.title}
+                  </h2>
+                  <time
+                    datetime={post.data.date.toISOString()}
+                    class="font-mono text-xs text-zinc-500 shrink-0"
+                  >
+                    {formatDate(post.data.date)}
+                  </time>
+                </div>
+                <p class="text-zinc-400 leading-relaxed">{post.data.summary}</p>
+                {post.data.tags.length > 0 && (
+                  <div class="flex flex-wrap gap-2 mt-3">
+                    {post.data.tags.map((t) => (
+                      <span class="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 bg-zinc-900 border border-zinc-800 rounded text-zinc-500">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </main>
+
+  <Footer />
+</BaseLayout>

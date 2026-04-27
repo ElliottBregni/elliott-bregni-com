@@ -1,0 +1,35 @@
+---
+// Top navigation. Domain name swaps based on which section is in view
+// (handled in the global client script).
+---
+
+<nav
+  id="nav"
+  class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-zinc-950/75 border-b border-zinc-900 transition-all duration-300"
+>
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a
+      href="#AI"
+      class="font-mono text-sm text-white tracking-tight flex items-center gap-1.5"
+    >
+      <span class="text-indigo-400">◈</span>
+      <span id="nav-domain-name" class="transition-opacity duration-300"
+        >elliott.bregni</span
+      >
+      <span class="text-zinc-600">.com</span>
+    </a>
+    <div class="hidden md:flex items-center gap-8 text-sm text-zinc-400">
+      <a href="#aboutme" class="hover:text-white transition-colors">About</a>
+      <a href="#projects" class="hover:text-white transition-colors">Projects</a>
+      <a href="/blog" class="hover:text-white transition-colors">Blog</a>
+      <a
+        href="/login"
+        id="nav-signin"
+        class="px-3 py-1.5 font-medium text-zinc-100 border border-zinc-700 rounded-md hover:border-indigo-400/50 hover:text-white transition-all"
+        hidden
+      >
+        Sign in →
+      </a>
+    </div>
+  </div>
+</nav>

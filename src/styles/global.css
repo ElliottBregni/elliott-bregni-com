@@ -1,0 +1,325 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+:root {
+  --indigo: #818cf8;
+  --violet: #a78bfa;
+  --emerald: #34d399;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+::selection {
+  background: rgba(129, 140, 248, 0.25);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #09090b;
+}
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 3px;
+}
+
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 52px 52px;
+}
+
+.hero-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% -5%, rgba(99, 102, 241, 0.22), transparent 65%),
+    radial-gradient(ellipse 40% 40% at 80% 20%, rgba(167, 139, 250, 0.1), transparent 60%);
+}
+
+.hero-fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 180px;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, #09090b);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.shimmer-text {
+  background: linear-gradient(
+    105deg,
+    #fff 0%,
+    #fff 35%,
+    #a78bfa 50%,
+    #818cf8 55%,
+    #fff 65%,
+    #71717a 100%
+  );
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 7s linear infinite;
+}
+
+.shimmer-text-rev {
+  background: linear-gradient(
+    105deg,
+    #71717a 0%,
+    #fff 35%,
+    #818cf8 45%,
+    #a78bfa 50%,
+    #fff 65%,
+    #fff 100%
+  );
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 7s linear infinite;
+}
+
+@keyframes word-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px) skewY(4deg);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+.word-reveal {
+  display: inline-block;
+  opacity: 0;
+  animation: word-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+#typewriter::after,
+#typewriter2::after {
+  content: "▋";
+  animation: blink 1s step-end infinite;
+}
+
+nav.scrolled {
+  border-color: rgba(99, 102, 241, 0.2);
+  box-shadow: 0 1px 30px rgba(99, 102, 241, 0.07);
+}
+
+.stats-bar {
+  border-top: 1px solid #18181b;
+  border-bottom: 1px solid #18181b;
+}
+
+.tilt-card {
+  transform-style: preserve-3d;
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+  will-change: transform;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.tilt-card:hover {
+  box-shadow:
+    0 0 0 1px rgba(129, 140, 248, 0.25),
+    0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+@property --angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes spin-border {
+  to {
+    --angle: 360deg;
+  }
+}
+
+.card-border-wrap {
+  position: relative;
+  border-radius: 0.875rem;
+}
+
+.card-border-wrap::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: conic-gradient(from var(--angle), transparent 75%, #818cf8, #a78bfa, transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 0;
+}
+
+.card-border-wrap:hover::before {
+  opacity: 1;
+  animation: spin-border 2.5s linear infinite;
+}
+
+.card-inner {
+  position: relative;
+  z-index: 1;
+  background: #09090b;
+  border-radius: 0.8125rem;
+  border: 1px solid #27272a;
+}
+
+.tilt-card:hover .card-inner {
+  border-color: transparent;
+}
+
+.terminal {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  line-height: 1.6;
+  background: #0d0d0f;
+  border: 1px solid #1c1c1e;
+  border-radius: 0.5rem;
+  padding: 0.85rem 1rem;
+  margin-top: 1rem;
+}
+
+.t-cmd {
+  color: #818cf8;
+}
+.t-out {
+  color: #71717a;
+}
+.t-ok {
+  color: #34d399;
+}
+.t-warn {
+  color: #fbbf24;
+}
+.t-cursor {
+  color: #a78bfa;
+  animation: blink 1s step-end infinite;
+}
+
+.bento-card {
+  background: #111113;
+  border: 1px solid #1c1c1f;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  transition:
+    transform 0.15s,
+    border-color 0.15s,
+    background 0.15s;
+}
+
+.bento-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(129, 140, 248, 0.2);
+  background: #13131a;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-d1 {
+  transition-delay: 0.05s;
+}
+.reveal-d2 {
+  transition-delay: 0.12s;
+}
+.reveal-d3 {
+  transition-delay: 0.19s;
+}
+.reveal-d4 {
+  transition-delay: 0.26s;
+}
+.reveal-d5 {
+  transition-delay: 0.33s;
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  color: #52525b;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 1.5rem;
+}
+
+.section-label::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(to right, rgba(129, 140, 248, 0.5), transparent);
+}
+
+@keyframes slide-gradient {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 200% 50%;
+  }
+}
+
+.footer-line {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #818cf8,
+    #a78bfa,
+    #818cf8,
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: slide-gradient 4s linear infinite;
+}

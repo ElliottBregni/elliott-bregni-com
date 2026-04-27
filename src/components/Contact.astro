@@ -1,0 +1,51 @@
+---
+interface ContactLink {
+  label: string;
+  display: string;
+  href: string;
+  external?: boolean;
+}
+
+const links: ContactLink[] = [
+  { label: "PERSONAL", display: "elliott.bregni@gmail.com", href: "mailto:elliott.bregni@gmail.com" },
+  { label: "MODERNIZED AI", display: "dev@elliott.bregni.com", href: "mailto:dev@elliott.bregni.com" },
+  { label: "GITHUB", display: "@ElliottBregni", href: "https://github.com/ElliottBregni", external: true },
+  {
+    label: "LINKEDIN",
+    display: "Elliott Bregni",
+    href: "https://www.linkedin.com/in/elliott-bregni-07a562a7",
+    external: true,
+  },
+];
+---
+
+<section id="contact" class="border-t border-zinc-900">
+  <div class="max-w-6xl mx-auto px-6 py-28">
+    <div class="section-label reveal">/ CONTACT</div>
+    <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-14 reveal reveal-d1">
+      Get in touch.
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {
+        links.map((l, i) => (
+          <a
+            href={l.href}
+            target={l.external ? "_blank" : undefined}
+            rel={l.external ? "noopener" : undefined}
+            class={`flex items-center justify-between p-6 border border-zinc-800 rounded-xl hover:border-indigo-400/40 hover:bg-zinc-900/50 transition-all group reveal reveal-d${Math.min(i + 2, 5)}`}
+          >
+            <div>
+              <div class="font-mono text-xs text-zinc-500 mb-1">{l.label}</div>
+              <div class="text-zinc-100 group-hover:text-white transition-colors">
+                {l.display}
+              </div>
+            </div>
+            <span class="text-zinc-600 group-hover:text-indigo-400 transition-colors text-lg">
+              ↗
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
