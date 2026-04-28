@@ -22,7 +22,7 @@ const roles: Role[] = [
       "Driving monolith-to-microservices migration, new developer tooling, and organizational shifts across the engineering org through the post-acquisition transition.",
       "Stepping into broader platform leadership and stewardship — architectural decisions, cross-team integration, and long-term system health across services.",
       "Going deep on AI engineering — agentic coding, context engineering, and the harness design that separates a chatbot from a working system.",
-      "Cloud-native systems on AWS and Azure with Kubernetes deploys; observability via Datadog and Rollbar; chain-of-custody and audit pathways across the platform.",
+      "Cloud-native systems on AWS — Kubernetes, Lambda, SQS/SNS — with observability via Datadog and Rollbar; chain-of-custody and audit pathways across the platform.",
     ],
   },
   {
@@ -36,7 +36,7 @@ const roles: Role[] = [
       "Led implementation of PartView, FreightVerify's aftermarket-parts visibility product — tracking tens of millions of individual parts every month with real-time events and ETAs across the supply chain (95% recent ETA accuracy).",
       "Major contributor to the flagship VinView platform — a real-time VIN tracker used daily by dealer networks at GM, Ford, Honda, and Hyundai; recently earned a world-class NPS of 83.",
       "Platform tracks 100M+ shipments and serves 70K monthly super users — parts managers, sales admins, and dealer ops — at six of the world's largest automotive manufacturers.",
-      "Wore many hats: Python and Java microservices, REST APIs, real-time eventing (Kafka, SQS/SNS), Postgres and OpenSearch, OEM data integrations, dealer-facing UIs, AWS/Azure infra on Kubernetes, on-call observability, and auth/audit pathways.",
+      "Wore many hats: Python and Java microservices, REST APIs, real-time eventing (Kafka, SQS/SNS), Postgres and OpenSearch, OEM data integrations, dealer-facing UIs, AWS infra (Kubernetes, Lambda), on-call observability, and auth/audit pathways.",
     ],
   },
   {
@@ -52,19 +52,20 @@ const roles: Role[] = [
 ];
 
 const skills = {
-  Languages: ["Python", "Java", "TypeScript", "JavaScript", "SQL", "PHP"],
+  Languages: ["Python", "Java", "TypeScript", "JavaScript", "SQL"],
   "Cloud & Infra": [
     "AWS (Lambda, S3, SQS/SNS, CloudFront, Route 53)",
-    "Azure",
     "Kubernetes",
     "Docker",
     "Kafka",
+    "Terraform",
     "Serverless Framework",
   ],
   "Backend & Data": [
     "Microservices architecture",
     "REST APIs",
     "FastAPI",
+    "Spring Boot",
     "Real-time eventing",
     "Postgres",
     "OpenSearch",
@@ -72,6 +73,14 @@ const skills = {
     "Schema design & migrations",
     "Qdrant",
   ],
+  "Security & Operations": [
+    "RBAC / capability systems",
+    "Audit logging",
+    "Secrets management",
+    "Datadog / Rollbar / observability",
+    "On-call",
+  ],
+  Frontend: ["React", "Astro", "Tailwind CSS", "Vite"],
   "AI / Agents": [
     "Agentic engineering",
     "Context engineering",
@@ -82,16 +91,16 @@ const skills = {
     "RAG / vector retrieval",
     "Multi-agent orchestration",
   ],
-  "Security & Operations": [
-    "RBAC / capability systems",
-    "Audit logging",
-    "Secrets management",
-    "Datadog / Rollbar / observability",
-    "On-call",
-  ],
-  Frontend: ["React", "Astro", "Tailwind CSS", "Vite"],
 };
 
+const projects = [
+  {
+    name: "Obscura",
+    href: "https://github.com/ElliottBregni/obscura",
+    blurb:
+      "A personal AI agent runtime built as a sandbox for harness engineering, agentic coding, and security-first design. Capability-gated tool access, RBAC, per-call audit logging, and pluggable secrets management. Vector memory, 100+ tools/extensions, and long-running task execution. Multi-backend across Claude, OpenAI, and local LLMs with CLI, a browser extension, and an MCP server that extends Claude Code with custom workflows.",
+  },
+];
 ---
 
 <BaseLayout
@@ -170,7 +179,7 @@ const skills = {
         <span class="text-white">70K monthly super users</span> — parts managers,
         sales admins, and dealer ops — at six of the world's largest automotive
         manufacturers (VinView NPS 83 · PartView 95% ETA accuracy). Strong in
-        backend microservices, real-time data, cloud infra (AWS &amp; Azure on
+        backend microservices, real-time data, cloud infra (AWS Lambda &amp;
         Kubernetes), and security posture (auth, RBAC, audit). Now growing into
         broader platform leadership and stewardship while going deep on AI
         engineering — agentic coding, context engineering, and harness design.
@@ -204,6 +213,31 @@ const skills = {
                   </li>
                 ))}
               </ul>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Personal projects -->
+    <section class="mb-10">
+      <h2 class="resume-h2">Personal Project</h2>
+      <div class="space-y-4">
+        {
+          projects.map((p) => (
+            <article>
+              <div class="flex items-baseline gap-3 flex-wrap mb-1">
+                <h3 class="text-lg font-semibold text-white">{p.name}</h3>
+                <a
+                  href={p.href}
+                  target="_blank"
+                  rel="noopener"
+                  class="font-mono text-xs text-indigo-400 hover:text-indigo-300"
+                >
+                  {p.href.replace("https://", "")}
+                </a>
+              </div>
+              <p class="text-zinc-400 text-sm leading-relaxed">{p.blurb}</p>
             </article>
           ))
         }
