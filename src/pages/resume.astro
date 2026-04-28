@@ -116,13 +116,14 @@ const projects = [
       >
         ← elliott.bregni.com
       </a>
-      <button
-        id="print-resume"
+      <a
+        href="/elliott-bregni-resume.pdf"
+        download="Elliott-Bregni-Resume.pdf"
         class="px-4 py-2 bg-white text-black text-sm font-semibold rounded-md hover:bg-zinc-100 transition-colors flex items-center gap-2"
       >
-        <span>Download / Print</span>
+        <span>Download PDF</span>
         <span class="text-xs">↓</span>
-      </button>
+      </a>
     </div>
   </div>
 
@@ -262,14 +263,6 @@ const projects = [
 
   </main>
 
-  <script>
-    const btn = document.getElementById("print-resume");
-    if (btn) btn.addEventListener("click", () => window.print());
-    // Auto-print when navigated to with ?print=auto
-    if (new URLSearchParams(window.location.search).get("print") === "auto") {
-      window.addEventListener("load", () => setTimeout(() => window.print(), 400));
-    }
-  </script>
 </BaseLayout>
 
 <style is:global>
