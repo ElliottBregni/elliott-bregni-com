@@ -14,11 +14,11 @@ interface Project {
 const projects: Project[] = [
   {
     name: "Obscura",
-    status: "BETA",
+    status: "IN-DEVELOPMENT",
     statusColor: "emerald",
     description:
-      "A personal AI agent runtime built as a sandbox for harness engineering, agentic coding, and security-first design. Capability-gated tool access, RBAC, per-call audit logging, and pluggable secrets management. Vector memory, 100+ tools/extensions, and long-running task execution. Multi-backend across Claude, OpenAI, and local LLMs with CLI, a browser extension, and an MCP server that extends Claude Code with custom workflows.",
-    tags: ["Python", "FastAPI", "MCP", "RBAC", "Audit log"],
+      "A personal AI agent runtime built as a sandbox for harness engineering, agentic coding, and security-first design. Capability-gated tool access, RBAC, and per-call audit logging. Vector memory, 100+ tools/extensions, and long-running task execution. Multi-backend across Claude, OpenAI, and local LLMs with CLI and an MCP server that extends Claude Code with custom workflows.",
+    tags: ["Python", "FastMCP", "REPL", "RBAC", "Vector Search"],
     href: "https://github.com/ElliottBregni/obscura",
     terminal: [
       { type: "cmd", text: "$ obscura run --backend claude --audit on" },
